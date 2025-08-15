@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Your Life Step by Step</title>
+    <!-- Use Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <div id="app" class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-10 border border-gray-200">
+        <!-- Main title and container -->
+        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-6">
+            Change Your Life Step by Step
+        </h1>
+        <p class="text-center text-gray-500 mb-8 sm:mb-12">
+            A Simple Guide to Self-Development
+        </p>
+
+        <!-- Container for content and table of contents -->
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Table of Contents Panel -->
+            <div id="toc-panel" class="md:w-1/3 p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm flex-shrink-0">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Table of Contents</h2>
+                <ul id="toc-list" class="space-y-2 text-gray-600">
+                    <!-- TOC items will be rendered here dynamically -->
+                </ul>
+            </div>
+
+            <!-- Content Panel -->
+            <div id="content-panel" class="md:w-2/3 p-6 bg-white rounded-lg border border-gray-100 shadow-md">
+                <!-- Content will be rendered here dynamically -->
+                <div id="content-display">
+                    <!-- Initial view: Welcome page -->
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome!</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        Welcome to your journey of self-development. This platform contains all the chapters from the book, "Change Your Life Step by Step."
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mt-4">
+                        To get started, simply click on a chapter from the Table of Contents on the left to read its content.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mt-4 font-semibold">
+                        Good luck on your journey!
+                    </p>
+                </div>
+
+                <!-- Back button (initially hidden) -->
+                <button id="back-button" class="mt-8 px-6 py-2 bg-blue-500 text-white font-medium rounded-full shadow-md hover:bg-blue-600 transition-colors hidden">
+                    &larr; Back to Table of Contents
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Use a JavaScript object to store the book's content for easy access and rendering.
+        const bookContent = {
+            'Introduction': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Introduction – Why self-development is important</h2>
+                <p class="text-gray-700 leading-relaxed">Hello! Welcome to your journey of change. Self-development means making yourself better. It means learning new things. It means changing bad habits into good ones. It means becoming the person you want to be.</p>
+                <p class="text-gray-700 leading-relaxed mt-4">Why is this important? Because you can control your life. You can be happier. You can reach your goals. You can help other people too.</p>
+                <p class="text-gray-700 leading-relaxed mt-4">Many people think change is hard. Yes, it takes time. But it is possible. Small changes make big differences. This book will help you. Each chapter has simple ideas. Each chapter has easy exercises. You can read one chapter each week. Take your time.</p>
+                <p class="text-gray-700 leading-relaxed mt-4 font-semibold">Remember: You are already good enough. But you can become even better. This journey starts now.</p>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your first exercise:</p>
+                    <p class="text-blue-700">Write down three things you want to change in your life. Keep this paper. Look at it again when you finish this book.</p>
+                </div>
+            `,
+            'Small habits, big change': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 2: Small habits, big change</h2>
+                <p class="text-gray-700 leading-relaxed">Big changes start with small steps. This is the secret of success. A habit is something you do every day. You brush your teeth. You drink coffee. You check your phone. These are habits. Good habits help you. Bad habits stop you. The good news? You can change your habits.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to build good habits:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Start very small.</strong> Want to read more? Read one page every day.</li>
+                    <li><strong>Do it at the same time.</strong> Read after breakfast every day.</li>
+                    <li><strong>Make it easy.</strong> Put the book next to your coffee cup.</li>
+                    <li><strong>Be patient.</strong> New habits take time.</li>
+                </ul>
+                <div class="bg-green-50 p-4 rounded-lg mt-6 border-l-4 border-green-400">
+                    <p class="font-semibold text-green-800">Example:</p>
+                    <p class="text-green-700">Sarah wanted to exercise. She started with two push-ups every morning. After one month, she did ten push-ups. After six months, she went to the gym three times each week.</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Choose one small good habit. Do it for seven days. Write "Yes" or "No" each day. Did you do it?</p>
+                </div>
+            `,
+            'How to focus better': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 3: How to focus better</h2>
+                <p class="text-gray-700 leading-relaxed">Focus means giving your attention to one thing. In our world, this is hard. We have phones, computers, and many distractions. Good focus helps you work better. You finish tasks faster. You make fewer mistakes. You feel less stressed.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to focus better:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Do one thing at a time.</strong> Close other apps on your computer. Put your phone away.</li>
+                    <li><strong>Take breaks.</strong> Work for 25 minutes, then rest for 5 minutes.</li>
+                    <li><strong>Clean your space.</strong> A clean desk helps a clean mind.</li>
+                    <li><strong>Sleep well.</strong> Tired people cannot focus.</li>
+                    <li><strong>Exercise.</strong> Moving your body helps your brain.</li>
+                </ul>
+                <div class="bg-green-50 p-4 rounded-lg mt-6 border-l-4 border-green-400">
+                    <p class="font-semibold text-green-800">The 25-minute rule:</p>
+                    <p class="text-green-700">Set a timer for 25 minutes. Work on one task. When the timer rings, take a 5-minute break. This is called the Pomodoro Technique.</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Try the 25-minute rule today. Pick one task. Work for 25 minutes without stopping. How did it feel?</p>
+                </div>
+            `,
+            'Learn faster, remember more': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 4: Learn faster, remember more</h2>
+                <p class="text-gray-700 leading-relaxed">Learning is important for life. You learn at school, at work, and at home. Good learners have more opportunities. Many people think they are bad at learning. This is not true. Everyone can learn better with the right methods.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">Ways to learn faster:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Be active.</strong> Don't just read. Take notes. Ask questions. Explain to someone else.</li>
+                    <li><strong>Use your senses.</strong> Read it, say it, write it, draw it.</li>
+                    <li><strong>Practice often.</strong> Review new information after one day, one week, one month.</li>
+                    <li><strong>Connect to what you know.</strong> How is this new information like something you already know?</li>
+                </ul>
+                <div class="bg-green-50 p-4 rounded-lg mt-6 border-l-4 border-green-400">
+                    <p class="font-semibold text-green-800">Memory tricks:</p>
+                    <ul class="list-disc list-inside space-y-1 text-green-700">
+                        <li>Make it funny.</li>
+                        <li>Make it visual.</li>
+                        <li>Tell a story.</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Learn something new today. Use two methods from this chapter. Test yourself tomorrow. How much do you remember?</p>
+                </div>
+            `,
+            'Positive thinking every day': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 5: Positive thinking every day</h2>
+                <p class="text-gray-700 leading-relaxed">Your thoughts change your life. Positive thoughts make you feel good. They give you energy. They help you solve problems. Negative thoughts make you feel bad. They stop you from trying. They make problems look bigger. You can choose your thoughts. This takes practice, but it works.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to think more positively:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Notice negative thoughts.</strong> When you think something negative, stop and notice it.</li>
+                    <li><strong>Question the thought.</strong> Is this really true? What proof do I have?</li>
+                    <li><strong>Find a better thought.</strong> What would a positive person think?</li>
+                    <li><strong>Focus on solutions.</strong> Instead of "This is a problem," think "How can I fix this?"</li>
+                </ul>
+                <div class="bg-green-50 p-4 rounded-lg mt-6 border-l-4 border-green-400">
+                    <p class="font-semibold text-green-800">Daily positive habits:</p>
+                    <ul class="list-disc list-inside space-y-1 text-green-700">
+                        <li>Write three good things that happened today.</li>
+                        <li>Say "thank you" more often.</li>
+                        <li>Smile at people.</li>
+                        <li>Help someone.</li>
+                        <li>Exercise or go outside.</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">For one week, write one positive thing about each day. Read them again at the end of the week. How do you feel?</p>
+                </div>
+            `,
+            'Time management made simple': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 6: Time management made simple</h2>
+                <p class="text-gray-700 leading-relaxed">Time is the same for everyone. Rich or poor, young or old - we all have 24 hours each day. The difference is how we use our time. Good time management helps you finish important tasks, have less stress, have more free time, and reach your goals faster.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">Simple time management tips:</h3>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Make a list.</strong> Write down everything you need to do. This clears your mind.</li>
+                    <li><strong>Pick the most important.</strong> Ask yourself: "What must I finish today?" Do these tasks first.</li>
+                    <li><strong>Plan your day.</strong> Decide when you will do each task. Write it down.</li>
+                    <li><strong>Learn to say "no."</strong> You cannot do everything. Choose what matters most.</li>
+                    <li><strong>Group similar tasks.</strong> Answer all emails at one time. Make all phone calls together.</li>
+                </ol>
+                <div class="bg-green-50 p-4 rounded-lg mt-6 border-l-4 border-green-400">
+                    <p class="font-semibold text-green-800">The 80/20 rule:</p>
+                    <p class="text-green-700">20% of your work gives you 80% of your results. Find this important 20%. Focus on it.</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Tonight, plan tomorrow. Write your three most important tasks. Do these first tomorrow. How did it help?</p>
+                </div>
+            `,
+            'Talking and listening skills': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 7: Talking and listening skills</h2>
+                <p class="text-gray-700 leading-relaxed">Good communication helps in every part of life. At work, with friends, with family - everywhere. Communication has two parts: talking and listening. Both are important.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to listen better:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Give full attention.</strong> Put your phone away. Look at the person. Don't think about other things.</li>
+                    <li><strong>Don't interrupt.</strong> Let people finish talking. Wait for your turn.</li>
+                    <li><strong>Ask questions.</strong> "Can you tell me more?" "How did that feel?" This shows you care.</li>
+                    <li><strong>Repeat back.</strong> "So you're saying..." This shows you understand.</li>
+                </ul>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Today, have one good conversation. Listen carefully to someone. Ask three questions about what they say. How did it feel?</p>
+                </div>
+            `,
+            'Stay motivated when life is hard': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 8: Stay motivated when life is hard</h2>
+                <p class="text-gray-700 leading-relaxed">Life is not always easy. Sometimes you feel tired. Sometimes things go wrong. Sometimes you want to give up. This is normal. Everyone feels this way sometimes. The important thing is to keep going.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to stay motivated:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Remember your "why."</strong> Why do you want to change? Write it down. Read it when you feel tired.</li>
+                    <li><strong>Celebrate small wins.</strong> Did you exercise today? Great! Did you eat healthy food? Wonderful! Notice your progress.</li>
+                    <li><strong>Find good people.</strong> Spend time with people who support you. Avoid negative people when possible.</li>
+                    <li><strong>Break big goals into small steps.</strong> Want to run a marathon? Start by running for 10 minutes. Take one step at a time.</li>
+                    <li><strong>Learn from mistakes.</strong> Mistakes are not failures. They are lessons. What can you learn? How can you do better?</li>
+                </ul>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Write a letter to yourself. Tell yourself why your goals are important. Read this letter when you feel unmotivated.</p>
+                </div>
+            `,
+            'Building self-confidence': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 9: Building self-confidence</h2>
+                <p class="text-gray-700 leading-relaxed">Self-confidence means believing in yourself. It means knowing you can handle problems. It means feeling good about who you are. Confident people try new things. They speak up. They take opportunities. They recover quickly from mistakes. You can build confidence. It takes time and practice.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to build confidence:</h3>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Start with small successes.</strong> Choose something easy. Do it well. Feel good about it. Then try something a little harder.</li>
+                    <li><strong>Learn new skills.</strong> Every new skill makes you more confident. Start with something interesting to you.</li>
+                    <li><strong>Take care of your body.</strong> Exercise, eat well, sleep enough. When your body feels good, your mind feels stronger.</li>
+                    <li><strong>Change your self-talk.</strong> Instead of "I can't," say "I'm learning." Instead of "I'm bad at this," say "I'm getting better."</li>
+                    <li><strong>Help other people.</strong> When you help others, you feel good about yourself. You see that you have value.</li>
+                </ol>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">This week, try one new thing. It can be small - a new food, a new route to work, talking to a new person. Notice how it feels to step outside your comfort zone.</p>
+                </div>
+            `,
+            'Keep growing for life': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Chapter 10: Keep growing for life</h2>
+                <p class="text-gray-700 leading-relaxed">Self-development never ends. There is always something new to learn. There is always a way to grow. This is good news! It means life stays interesting. It means you never stop becoming better.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">How to keep growing:</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Stay curious.</strong> Ask questions. Wonder about things. Read books. Watch educational videos. Talk to different people.</li>
+                    <li><strong>Try new things.</strong> Take a class. Learn a hobby. Visit new places. Every new experience teaches you something.</li>
+                    <li><strong>Ask for feedback.</strong> Ask friends, family, or coworkers: "How can I improve?" Listen to their answers without getting angry.</li>
+                    <li><strong>Reflect regularly.</strong> Once a month, ask yourself: "What did I learn? What do I want to work on next?"</li>
+                    <li><strong>Find mentors and teachers.</strong> Look for people who are good at things you want to learn. Ask them questions. Learn from their experience.</li>
+                </ul>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Your exercise:</p>
+                    <p class="text-blue-700">Choose one new skill to learn in the next three months. Make a simple plan: What will you learn? How will you learn it? When will you start?</p>
+                </div>
+            `,
+            'Conclusion – Your next steps': `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Conclusion – Your next steps</h2>
+                <p class="text-gray-700 leading-relaxed">Congratulations! You have finished this book. You now know many tools for self-development. But reading is not enough. You must use these ideas. You must practice them every day.</p>
+                <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-2">Your next steps:</h3>
+                <ul class="list-decimal list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <li><strong>Choose three ideas.</strong> You cannot do everything at once. Pick three ideas from this book. Focus on these first.</li>
+                    <li><strong>Start small.</strong> Remember: small changes are powerful. Don't try to change everything today.</li>
+                    <li><strong>Be patient.</strong> Change takes time. Some days will be hard. Keep going anyway.</li>
+                    <li><strong>Track your progress.</strong> Write down what you do. Celebrate small wins. Learn from setbacks.</li>
+                    <li><strong>Find support.</strong> Tell someone about your goals. Find friends who also want to grow. Help each other.</li>
+                </ul>
+                <div class="bg-blue-50 p-4 rounded-lg mt-6 border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-800">Final Exercise:</p>
+                    <p class="text-blue-700">Write a letter to yourself one year from now. Tell yourself about your goals and dreams. Put this letter away. Read it again in one year. See how much you have grown.</p>
+                </div>
+            `
+        };
+
+        const tocList = document.getElementById('toc-list');
+        const contentDisplay = document.getElementById('content-display');
+        const backButton = document.getElementById('back-button');
+
+        // Function to render the table of contents
+        function renderTOC() {
+            tocList.innerHTML = ''; // Clear existing list
+            for (const chapter in bookContent) {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#';
+                a.textContent = chapter;
+                a.classList.add('block', 'p-2', 'rounded-md', 'hover:bg-gray-200', 'transition-colors', 'cursor-pointer');
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    showChapter(chapter);
+                };
+                li.appendChild(a);
+                tocList.appendChild(li);
+            }
+        }
+
+        // Function to show a specific chapter
+        function showChapter(chapter) {
+            if (bookContent[chapter]) {
+                contentDisplay.innerHTML = bookContent[chapter];
+                backButton.classList.remove('hidden');
+            } else {
+                contentDisplay.innerHTML = `<p class="text-red-500">Chapter not found.</p>`;
+            }
+        }
+
+        // Event listener for the back button
+        backButton.addEventListener('click', () => {
+            contentDisplay.innerHTML = `
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Welcome!</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Welcome to your journey of self-development. This platform contains all the chapters from the book, "Change Your Life Step by Step."
+                </p>
+                <p class="text-gray-700 leading-relaxed mt-4">
+                    To get started, simply click on a chapter from the Table of Contents on the left to read its content.
+                </p>
+                <p class="text-gray-700 leading-relaxed mt-4 font-semibold">
+                    Good luck on your journey!
+                </p>
+            `;
+            backButton.classList.add('hidden');
+        });
+
+        // Initialize the app by rendering the TOC
+        window.onload = renderTOC;
+    </script>
+
+</body>
+</html>
